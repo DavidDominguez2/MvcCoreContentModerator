@@ -19,7 +19,7 @@ namespace MvcCoreContentModerator.Controllers {
         [HttpPost]
         public IActionResult Index(string text) {
             var result = this.contentModerator.ModerateText(text);
-            ViewData["result"] = result;
+            ViewData["result"] = result.Classification.ReviewRecommended;
             return View();
         }
 

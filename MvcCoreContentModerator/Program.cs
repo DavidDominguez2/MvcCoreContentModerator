@@ -1,9 +1,10 @@
 using Microsoft.Azure.CognitiveServices.ContentModerator;
+using MvcCoreContentModerator.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //CONTENT MODERATOR
-builder.Services.AddTransient<ContentModeratorClient>();
+builder.Services.AddTransient<ServiceContentModerator>();
 
 
 // Add services to the container.
