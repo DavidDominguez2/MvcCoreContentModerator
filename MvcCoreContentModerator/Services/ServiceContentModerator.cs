@@ -26,11 +26,9 @@ namespace MvcCoreContentModerator.Services {
             // Create a Content Moderator client and evaluate the text.
             using (this.client) {
                 return
-                   this.client.TextModeration.ScreenText("text/plain", new MemoryStream(Encoding.UTF8.GetBytes(text)), lang, true, true, null, true);
+                   this.client.TextModeration.ScreenText("text/plain", 
+                   new MemoryStream(Encoding.UTF8.GetBytes(text)), lang, true, true, null, true);
             }
         }
-
-
-
     }
 }

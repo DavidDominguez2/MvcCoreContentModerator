@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.CognitiveServices.ContentModerator.Models;
 using MvcCoreContentModerator.Models;
 using MvcCoreContentModerator.Services;
 using System.Diagnostics;
@@ -18,18 +19,17 @@ namespace MvcCoreContentModerator.Controllers {
 
         [HttpPost]
         public IActionResult Index(string text) {
-            var result = this.contentModerator.ModerateText(text);
-            ViewData["result"] = result.Classification.ReviewRecommended;
-            return View();
-        }
+            Screen result = this.contentModerator.ModerateText(text);
+            bool curse = (bool)result.Classification.ReviewRecommended;
+			string correct = result.AutoCorrectedText;
 
-        public IActionResult Privacy() {
-            return View();
-        }
+            if (!curse) {
+				ViewData["result"] = correct;
+            } else {
+                ViewData["MENSAJE"] = "No se puede enviar el mensaje, se ha detectado una palabra ilícita.";
+            }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error() {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+			return View();
         }
     }
 }
